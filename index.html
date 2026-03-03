@@ -264,7 +264,6 @@
     <div class="color-row">
       <div class="color-field"><input type="color" id="c-primary" value="#2565FF" oninput="update()"><label>Principale</label></div>
       <div class="color-field"><input type="color" id="c-accent" value="#2565FF" oninput="update()"><label>Accent</label></div>
-      <div class="color-field"><input type="color" id="c-social" value="#2565FF" oninput="update()"><label>Icônes sociaux</label></div>
     </div>
   </div>
 
@@ -411,7 +410,6 @@ function buildSignature(forEmail) {
   const tagline   = val('f-tagline');
   const primary   = val('c-primary');
   const accent    = val('c-accent');
-  const socialColor = val('c-social') || primary;
   const photo     = photoDataUrl;
 
   const photoHtml  = photo
@@ -425,7 +423,7 @@ function buildSignature(forEmail) {
     : '';
 
   const contactInfo = [emailLink, phoneLink, phone2Link, webLink].filter(Boolean).join(' &nbsp;·&nbsp; ');
-  const socialHtml  = buildSocialIcons(linkedin, instagram, facebook, socialColor, !!forEmail);
+  const socialHtml  = buildSocialIcons(linkedin, instagram, facebook, primary, !!forEmail);
   const taglineHtml = tagline ? `<p style="margin:8px 0 0;font-size:12px;color:#888;font-style:italic">${tagline}</p>` : '';
 
   let sig = '';
