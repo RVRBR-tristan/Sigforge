@@ -362,20 +362,18 @@ function compactUrlDisplay(url) {
   return String(url).replace(/^https?:\/\//, '').replace(/\/$/, '');
 }
 
-// Base URL for social icons: Gmail does not display data: URIs, so we use hosted SVG URLs.
-function getIconBase() {
-  const isLocal = window.location.protocol === 'file:' || window.location.hostname === 'localhost';
-  if (isLocal) return 'https://RVRBR-tristan.github.io/Sigforge/icons/';
-  const path = window.location.pathname.replace(/\/?index\.html$/i, '').replace(/\/$/, '');
-  return window.location.origin + path + '/icons/';
-}
-const ICON_BASE = getIconBase();
+// Social icons: CDN URLs (reliable in all email clients; GitHub Pages often blocked or not enabled).
+const SOCIAL_ICONS = {
+  linkedin: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/linkedin.svg',
+  instagram: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/instagram.svg',
+  facebook: 'https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/facebook.svg'
+};
 
 function buildSocialIcons(linkedin, instagram, facebook) {
   const parts = [];
-  if (linkedin)  parts.push(`<a href="${linkedin}" style="text-decoration:none;display:inline-block"><img src="${ICON_BASE}linkedin.svg" width="19" height="19" alt="LinkedIn" style="vertical-align:middle;display:block;border:0"></a>`);
-  if (instagram) parts.push(`<a href="${instagram}" style="text-decoration:none;display:inline-block"><img src="${ICON_BASE}instagram.svg" width="19" height="19" alt="Instagram" style="vertical-align:middle;display:block;border:0"></a>`);
-  if (facebook)  parts.push(`<a href="${facebook}" style="text-decoration:none;display:inline-block"><img src="${ICON_BASE}facebook.svg" width="19" height="19" alt="Facebook" style="vertical-align:middle;display:block;border:0"></a>`);
+  if (linkedin)  parts.push(`<a href="${linkedin}" style="text-decoration:none;display:inline-block"><img src="${SOCIAL_ICONS.linkedin}" width="19" height="19" alt="LinkedIn" style="vertical-align:middle;display:block;border:0"></a>`);
+  if (instagram) parts.push(`<a href="${instagram}" style="text-decoration:none;display:inline-block"><img src="${SOCIAL_ICONS.instagram}" width="19" height="19" alt="Instagram" style="vertical-align:middle;display:block;border:0"></a>`);
+  if (facebook)  parts.push(`<a href="${facebook}" style="text-decoration:none;display:inline-block"><img src="${SOCIAL_ICONS.facebook}" width="19" height="19" alt="Facebook" style="vertical-align:middle;display:block;border:0"></a>`);
   if (!parts.length) return '';
   const cells = parts.map((p, i) => `<td style="padding-right:${i === parts.length - 1 ? 0 : 10}px">${p}</td>`).join('');
   return `<table cellpadding="0" cellspacing="0" style="margin-top:14px"><tr>${cells}</tr></table>`;
