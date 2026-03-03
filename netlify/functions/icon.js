@@ -13,9 +13,14 @@ function hexColor(input) {
 }
 
 exports.handler = async (event) => {
-  const params = event.queryStringParameters || {};
-  const name = (params.name || "").toLowerCase();
-  const color = hexColor(params.color || "2565FF");
+  // Path format: /.netlify/functions/icon/NAME/COLOR (Gmail strips query strings from img src)
+  const path = (event.path || event.rawUrl || "").split("?")[0];
+  const parts = path.split("/").filter(Boolean);
+  const pathName = parts[parts.length - 2];
+  const pathColor = parts[parts.length - 1];
+  const query = event.queryStringParameters || {};
+  const name = (pathName || query.name || "").toLowerCase();
+  const color = hexColor(pathColor || query.color || "2565FF");
 
   if (!PATHS[name]) {
     return { statusCode: 404, body: "Not found" };
