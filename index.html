@@ -266,9 +266,16 @@
       <div class="color-field"><input type="color" id="c-social" value="#2565FF" oninput="update()"><label>Icônes sociaux</label></div>
     </div>
     <div style="margin-top:10px">
-      <label style="font-size:11px;color:#666">URL de ton site Netlify (pour icônes colorées en e-mail)</label>
+      <label style="display:flex;align-items:center;gap:8px;font-size:12px;color:#333;cursor:pointer">
+        <input type="checkbox" id="use-cdn-icons" checked onchange="update()">
+        <span>Icônes fiables (CDN) — s’affichent partout, couleur par défaut</span>
+      </label>
+      <p style="margin:6px 0 0;font-size:11px;color:#888">Coche si les icônes ne s’affichent pas chez tes destinataires (Gmail, entreprise). Décoche pour ta couleur personnalisée (nécessite Netlify).</p>
+    </div>
+    <div style="margin-top:10px" id="netlify-url-wrap">
+      <label style="font-size:11px;color:#666">URL de ton site Netlify (pour icônes colorées)</label>
       <input type="url" id="netlify-url" placeholder="https://ton-site.netlify.app" style="width:100%;margin-top:4px;padding:6px;font-size:12px" oninput="update()">
-      <p style="margin:4px 0 0;font-size:11px;color:#888">Ouvre l’app depuis ton URL Netlify, puis colle ici la même URL. <a href="#" id="test-icon-link" target="_blank" rel="noopener" style="font-size:11px">Tester l’icône</a></p>
+      <p style="margin:4px 0 0;font-size:11px;color:#888"><a href="#" id="test-icon-link" target="_blank" rel="noopener" style="font-size:11px">Tester l’icône</a></p>
     </div>
   </div>
 
@@ -396,10 +403,17 @@ function socialIconSvg(path, fill) {
 function buildSocialIcons(linkedin, instagram, facebook, iconColor, forEmail) {
   const parts = [];
   if (forEmail) {
-    const color = iconColor || '#2565FF';
-    if (linkedin)  parts.push(`<a href="${linkedin}" style="text-decoration:none;display:inline-block"><img src="${iconUrl('linkedin', color)}" width="19" height="19" alt="LinkedIn" style="vertical-align:middle;display:block;border:0"></a>`);
-    if (instagram) parts.push(`<a href="${instagram}" style="text-decoration:none;display:inline-block"><img src="${iconUrl('instagram', color)}" width="19" height="19" alt="Instagram" style="vertical-align:middle;display:block;border:0"></a>`);
-    if (facebook)  parts.push(`<a href="${facebook}" style="text-decoration:none;display:inline-block"><img src="${iconUrl('facebook', color)}" width="19" height="19" alt="Facebook" style="vertical-align:middle;display:block;border:0"></a>`);
+    const useCdn = document.getElementById('use-cdn-icons') && document.getElementById('use-cdn-icons').checked;
+    if (useCdn) {
+      if (linkedin)  parts.push(`<a href="${linkedin}" style="text-decoration:none;display:inline-block"><img src="${SOCIAL_ICONS_CDN.linkedin}" width="19" height="19" alt="LinkedIn" style="vertical-align:middle;display:block;border:0"></a>`);
+      if (instagram) parts.push(`<a href="${instagram}" style="text-decoration:none;display:inline-block"><img src="${SOCIAL_ICONS_CDN.instagram}" width="19" height="19" alt="Instagram" style="vertical-align:middle;display:block;border:0"></a>`);
+      if (facebook)  parts.push(`<a href="${facebook}" style="text-decoration:none;display:inline-block"><img src="${SOCIAL_ICONS_CDN.facebook}" width="19" height="19" alt="Facebook" style="vertical-align:middle;display:block;border:0"></a>`);
+    } else {
+      const color = iconColor || '#2565FF';
+      if (linkedin)  parts.push(`<a href="${linkedin}" style="text-decoration:none;display:inline-block"><img src="${iconUrl('linkedin', color)}" width="19" height="19" alt="LinkedIn" style="vertical-align:middle;display:block;border:0"></a>`);
+      if (instagram) parts.push(`<a href="${instagram}" style="text-decoration:none;display:inline-block"><img src="${iconUrl('instagram', color)}" width="19" height="19" alt="Instagram" style="vertical-align:middle;display:block;border:0"></a>`);
+      if (facebook)  parts.push(`<a href="${facebook}" style="text-decoration:none;display:inline-block"><img src="${iconUrl('facebook', color)}" width="19" height="19" alt="Facebook" style="vertical-align:middle;display:block;border:0"></a>`);
+    }
   } else {
     const fill = iconColor || '#2565FF';
     if (linkedin)  parts.push(`<a href="${linkedin}" style="text-decoration:none;display:inline-block">${socialIconSvg(LI_PATH, fill)}</a>`);
@@ -456,10 +470,13 @@ function buildSignature(forEmail) {
 
 function update() {
   syncPhotoPreview();
+  const useCdn = document.getElementById('use-cdn-icons') && document.getElementById('use-cdn-icons').checked;
+  const netlifyWrap = document.getElementById('netlify-url-wrap');
+  if (netlifyWrap) netlifyWrap.style.display = useCdn ? 'none' : 'block';
   document.getElementById('sig-output').innerHTML = buildSignature(false);
   document.getElementById('html-box').textContent = buildSignature(true);
   const testLink = document.getElementById('test-icon-link');
-  if (testLink) testLink.href = iconUrl('linkedin', val('c-social') || val('c-primary'));
+  if (testLink) testLink.href = useCdn ? SOCIAL_ICONS_CDN.linkedin : iconUrl('linkedin', val('c-social') || val('c-primary'));
 }
 
 async function copySignature() {
