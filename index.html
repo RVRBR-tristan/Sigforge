@@ -383,6 +383,14 @@ function loadPhoto(e) {
 
 function val(id) { return document.getElementById(id).value.trim(); }
 
+function initPreview() {
+  syncPhotoPreview();
+  const out = document.getElementById('sig-output');
+  const box = document.getElementById('html-box');
+  if (out) out.innerHTML = buildSignature(false);
+  if (box) box.textContent = buildSignature(true);
+}
+
 function compactUrlDisplay(url) {
   return String(url).replace(/^https?:\/\//, '').replace(/\/$/, '');
 }
@@ -502,7 +510,11 @@ async function copyHTML(event) {
   setTimeout(() => { btn.textContent = 'Copier le HTML'; }, 2000);
 }
 
-update();
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initPreview);
+} else {
+  initPreview();
+}
 </script>
 </body>
 </html>
