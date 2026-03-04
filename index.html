@@ -160,6 +160,29 @@
   }
   .copy-html-btn:hover { border-color: #2565FF; }
   .divider-line { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+  /* Preview: signature not too big on small screens */
+  #sig-output { max-width: 100%; overflow-x: auto; }
+  #sig-output table { max-width: 100% !important; }
+  #sig-output img { max-width: 100%; height: auto !important; }
+
+  @media (max-width: 900px) {
+    body { grid-template-columns: 1fr; grid-template-rows: auto auto 1fr; }
+    .panel { border-right: none; border-bottom: 1px solid var(--border); }
+    .preview-zone { padding: 20px 16px; }
+    .email-frame { padding: 20px 16px; }
+    .email-mock-body { font-size: 13px; }
+  }
+
+  @media (max-width: 480px) {
+    header { flex-wrap: wrap; padding: 16px 20px; }
+    .tagline { margin-left: 0; margin-top: 8px; width: 100%; }
+    .preview-zone { padding: 16px 12px; }
+    .email-frame { padding: 16px 12px; }
+    #sig-output table { font-size: 12px !important; }
+    #sig-output img { max-width: 56px !important; height: auto !important; }
+    #sig-output p { font-size: 13px !important; }
+  }
 </style>
 </head>
 <body>
@@ -395,7 +418,7 @@ function buildSignature(forEmail) {
   const photo     = photoDataUrl;
 
   const photoHtml  = photo
-    ? `<img src="${photo}" width="72" height="72" style="border-radius:50%;object-fit:cover" alt="${name}">`
+    ? `<img src="${photo}" width="72" height="72" style="border-radius:50%;object-fit:cover;max-width:100%;height:auto" alt="${name}">`
     : '';
   const emailLink  = email   ? `<a href="mailto:${email}" style="color:${primary};text-decoration:none">${email}</a>` : '';
   const phoneLink  = phone   ? `<span style="color:#555">${phone}</span>` : '';
@@ -411,10 +434,10 @@ function buildSignature(forEmail) {
   let sig = '';
 
   if (currentStyle === 'modern') {
-    sig = `<table cellpadding="0" cellspacing="0" style="font-family:Arial,sans-serif;font-size:13px;color:#333;border-collapse:collapse"><tr>${photo ? `<td valign="middle" style="padding-right:16px;vertical-align:middle">${photoHtml}</td>` : ''}<td valign="middle" style="border-left:3px solid ${primary};padding-left:16px;vertical-align:middle"><p style="margin:0;font-size:15px;font-weight:700;color:${accent}">${name}</p><p style="margin:2px 0 0;font-size:12px;color:#666">${title}${company ? ` · <strong>${company}</strong>` : ''}</p><p style="margin:8px 0 0;font-size:12px;color:#555;white-space:nowrap">${contactInfo}</p>${socialHtml}${taglineHtml}</td></tr></table>`;
+    sig = `<table cellpadding="0" cellspacing="0" style="font-family:Arial,sans-serif;font-size:13px;color:#333;border-collapse:collapse;max-width:100%"><tr>${photo ? `<td valign="middle" style="padding-right:16px;vertical-align:middle">${photoHtml}</td>` : ''}<td valign="middle" style="border-left:3px solid ${primary};padding-left:16px;vertical-align:middle"><p style="margin:0;font-size:15px;font-weight:700;color:${accent}">${name}</p><p style="margin:2px 0 0;font-size:12px;color:#666">${title}${company ? ` · <strong>${company}</strong>` : ''}</p><p style="margin:8px 0 0;font-size:12px;color:#555;white-space:nowrap">${contactInfo}</p>${socialHtml}${taglineHtml}</td></tr></table>`;
   }
   else if (currentStyle === 'card') {
-    sig = `<table cellpadding="0" cellspacing="0" style="font-family:Arial,sans-serif;border:1px solid #e0e0e8;border-radius:12px;overflow:hidden"><tr><td valign="middle" style="background:${primary};padding:16px;vertical-align:middle;width:90px;text-align:center">${photo ? photoHtml : ''}</td><td valign="middle" style="padding:16px 20px;vertical-align:middle;background:#fff"><p style="margin:0;font-size:15px;font-weight:700;color:${accent}">${name}</p><p style="margin:2px 0 10px;font-size:11.5px;color:#888">${title}${company ? ` · ${company}` : ''}</p><p style="margin:0;font-size:12px;color:#555;white-space:nowrap">${contactInfo}</p>${socialHtml}${taglineHtml}</td></tr></table>`;
+    sig = `<table cellpadding="0" cellspacing="0" style="font-family:Arial,sans-serif;border:1px solid #e0e0e8;border-radius:12px;overflow:hidden;max-width:100%"><tr><td valign="middle" style="background:${primary};padding:16px;vertical-align:middle;width:90px;text-align:center">${photo ? photoHtml : ''}</td><td valign="middle" style="padding:16px 20px;vertical-align:middle;background:#fff"><p style="margin:0;font-size:15px;font-weight:700;color:${accent}">${name}</p><p style="margin:2px 0 10px;font-size:11.5px;color:#888">${title}${company ? ` · ${company}` : ''}</p><p style="margin:0;font-size:12px;color:#555;white-space:nowrap">${contactInfo}</p>${socialHtml}${taglineHtml}</td></tr></table>`;
   }
 
   return sig.trim();
