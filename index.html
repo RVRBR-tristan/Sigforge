@@ -390,7 +390,7 @@ function buildSocialIcons(linkedin, instagram, facebook) {
   const parts = [];
 
   const iconLink = (url, bg, text) =>
-    `<a href="${url}" style="text-decoration:none;display:inline-block;background:${bg};color:#ffffff;font-family:Arial,sans-serif;font-size:11px;font-weight:700;width:20px;height:20px;line-height:20px;text-align:center;border-radius:50%">${text}</a>`;
+    `<a href="${url}" style="text-decoration:none;display:inline-block;background:${bg};color:#ffffff;font-family:Arial,sans-serif;font-size:11px;font-weight:700;width:20px;height:20px;line-height:20px;text-align:center;border-radius:50%"><span style="text-decoration:none">${text}</span></a>`;
 
   if (linkedin)  parts.push(iconLink(linkedin, '#0077B5', 'in'));
   if (instagram) parts.push(iconLink(instagram, '#E1306C', 'ig'));
