@@ -424,8 +424,8 @@ function buildSignature(forEmail) {
     ? `<img src="${photo}" width="72" height="72" style="border-radius:50%;object-fit:cover;max-width:100%;height:auto" alt="${name}">`
     : '';
   const emailLink  = email   ? `<a href="mailto:${email}" style="color:${primary};text-decoration:none">${email}</a>` : '';
-  const phoneLink  = phone   ? `<span style="color:#555">${phone}</span>` : '';
-  const phone2Link = phone2  ? `<span style="color:#777">${phone2}</span>` : '';
+  const phoneLink  = phone   ? `<a href="tel:${phone.replace(/\s/g,'')}" style="color:${primary};text-decoration:none">${phone}</a>` : '';
+  const phone2Link = phone2  ? `<a href="tel:${phone2.replace(/\s/g,'')}" style="color:${primary};text-decoration:none">${phone2}</a>` : '';
   const webLink = website
     ? `<span style="white-space:nowrap"><a href="${website}" style="color:${primary};text-decoration:none;white-space:nowrap">${compactUrlDisplay(website)}</a></span>`
     : '';
