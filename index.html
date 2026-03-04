@@ -198,16 +198,16 @@
   <div>
     <div class="section-title">Informations personnelles</div>
     <div class="field-group">
-      <div><label>Prénom Nom</label><input type="text" id="f-name" value="Marie Dupont" oninput="update()"></div>
-      <div><label>Titre / Poste</label><input type="text" id="f-title" value="Directrice Marketing" oninput="update()"></div>
-      <div><label>Entreprise</label><input type="text" id="f-company" value="Réverbère" oninput="update()"></div>
-      <div><label>Email</label><input type="email" id="f-email" value="marie@acmecorp.com" oninput="update()"></div>
-      <div><label>Téléphone principal</label><input type="text" id="f-phone" value="+1 (514) 555-0192" oninput="update()"></div>
+      <div><label>Prénom Nom</label><input type="text" id="f-name" value="Marie Dupont" autocomplete="name" oninput="update()"></div>
+      <div><label>Titre / Poste</label><input type="text" id="f-title" value="Directrice Marketing" autocomplete="organization-title" oninput="update()"></div>
+      <div><label>Entreprise</label><input type="text" id="f-company" value="Réverbère" autocomplete="organization" oninput="update()"></div>
+      <div><label>Email</label><input type="email" id="f-email" value="marie@acmecorp.com" autocomplete="email" oninput="update()"></div>
+      <div><label>Téléphone principal</label><input type="text" id="f-phone" value="+1 (514) 555-0192" autocomplete="tel" oninput="update()"></div>
       <div>
         <label>Téléphone secondaire <span class="optional-badge">Optionnel</span></label>
-        <input type="text" id="f-phone2" placeholder="Ex: +1 (514) 555-0111" oninput="update()">
+        <input type="text" id="f-phone2" placeholder="Ex: +1 (514) 555-0111" autocomplete="tel" oninput="update()">
       </div>
-      <div><label>Site web</label><input type="url" id="f-website" value="https://studio-reverbere.com/" oninput="update()"></div>
+      <div><label>Site web</label><input type="url" id="f-website" value="https://studio-reverbere.com/" autocomplete="url" oninput="update()"></div>
     </div>
   </div>
 
@@ -225,6 +225,7 @@
             id="f-linkedin"
             value="https://www.linkedin.com/company/studio-reverbere/"
             placeholder="https://www.linkedin.com/company/studio-reverbere/"
+            autocomplete="url"
             oninput="update()"
           >
         </div>
@@ -238,6 +239,7 @@
             id="f-instagram"
             value="https://www.instagram.com/studioreverbere/"
             placeholder="https://www.instagram.com/studioreverbere/"
+            autocomplete="url"
             oninput="update()"
           >
         </div>
@@ -251,6 +253,7 @@
             id="f-facebook"
             value="https://www.facebook.com/studioreverbere/"
             placeholder="https://www.facebook.com/studioreverbere/"
+            autocomplete="url"
             oninput="update()"
           >
         </div>
