@@ -424,7 +424,7 @@ function buildSignature(forEmail) {
   const phoneLink  = phone   ? `<span style="color:#555">${phone}</span>` : '';
   const phone2Link = phone2  ? `<span style="color:#777">${phone2}</span>` : '';
   const webLink = website
-    ? `<span style="white-space:nowrap"><a href="${website}" style="color:${primary};text-decoration:none;white-space:nowrap">${website}</a></span>`
+    ? `<span style="white-space:nowrap"><a href="${website}" style="color:${primary};text-decoration:none;white-space:nowrap">${compactUrlDisplay(website)}</a></span>`
     : '';
 
   const contactInfo = [emailLink, phoneLink, phone2Link, webLink].filter(Boolean).join(' &nbsp;·&nbsp; ');
