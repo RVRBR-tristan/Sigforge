@@ -1,0 +1,10 @@
+{
+  "name": "sigforge",
+  "private": true,
+  "scripts": {
+    "favicons": "node build-favicons.mjs"
+  },
+  "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2"
+  }
+}
