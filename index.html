@@ -246,7 +246,7 @@
   }
 </style>
 </head>
-<body data-theme="dark">
+<body data-theme="light">
 
 <header>
   <img src="logo-sigforge.svg" alt="Sigforge" class="header-logo" id="header-logo">
@@ -568,7 +568,7 @@ async function copyHTML(event) {
 
 document.addEventListener('DOMContentLoaded', () => {
   const saved = localStorage.getItem('sigforge-theme');
-  const initial = saved === 'light' || saved === 'dark' ? saved : 'dark';
+  const initial = saved === 'light' || saved === 'dark' ? saved : 'light';
   applyTheme(initial);
   const toggle = document.getElementById('theme-toggle');
   if (toggle) {
