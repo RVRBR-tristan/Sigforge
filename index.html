@@ -14,7 +14,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0,0" />
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Montagu+Slab:opsz,wght@16..144,400&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Montagu+Slab:opsz,wght@16..144,400&display=swap');
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -61,7 +61,13 @@
   }
 
   .header-logo { height: 36px; width: auto; display: block; object-fit: contain; }
-  .tagline { margin-left: auto; font-size: 13px; color: var(--muted); letter-spacing: 0.5px; }
+  .tagline {
+    margin-left: auto;
+    font-size: 13px;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+    font-family: "IBM Plex Mono", monospace;
+  }
 
   .theme-toggle-btn {
     margin-left: 16px;
