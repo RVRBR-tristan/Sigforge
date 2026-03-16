@@ -5,6 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sigforge - Générateur de Signature Email</title>
 <link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Montagu+Slab:opsz,wght@16..144,400&display=swap');
@@ -61,8 +63,14 @@
     font-family: "Montagu Slab", serif;
     font-weight: 400;
     font-size: 24px;
+    font-optical-sizing: auto;
+    font-variation-settings: "opsz" 24, "wght" 400;
     letter-spacing: -1px;
-    text-transform: none; color: var(--muted); margin-bottom: 14px;
+    text-transform: none;
+    color: var(--muted);
+    margin-bottom: 14px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   .field-group { display: flex; flex-direction: column; gap: 12px; }
@@ -144,7 +152,17 @@
   .email-divider { border: none; border-top: 1px solid #e0e0e8; margin-bottom: 20px; }
 
   .instructions { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
-  .instructions h3 { font-family: var(--font-title); font-size: 17px; margin-bottom: 16px; color: #2565FF; }
+  .instructions h3 {
+    font-family: "Montagu Slab", serif;
+    font-weight: 400;
+    font-size: 17px;
+    font-optical-sizing: auto;
+    font-variation-settings: "opsz" 17, "wght" 400;
+    margin-bottom: 16px;
+    color: #2565FF;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
   .step { display: flex; gap: 14px; margin-bottom: 12px; align-items: flex-start; }
   .step-num {
     width: 24px; height: 24px; background: #2565FF; color: #fff; border-radius: 50%;
