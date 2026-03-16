@@ -12,6 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,400,0,0" />
 <style>
   @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=Montagu+Slab:opsz,wght@16..144,400&display=swap');
 
@@ -250,7 +251,10 @@
 <header>
   <img src="logo-sigforge.svg" alt="Sigforge" class="header-logo" id="header-logo">
   <div class="tagline">Signatures email professionnelles · Gratuit · Sans abonnement</div>
-  <button type="button" class="theme-toggle-btn" id="theme-toggle">☾ Mode sombre</button>
+  <button type="button" class="theme-toggle-btn" id="theme-toggle">
+    <span class="material-symbols-outlined">light_mode</span>
+    Mode clair
+  </button>
 </header>
 
 <!-- LEFT PANEL -->
@@ -280,7 +284,7 @@
       <div>
         <label>LinkedIn <span class="optional-badge">Optionnel</span></label>
         <div class="social-input-wrap">
-          <span class="s-icon">💼</span>
+          <span class="s-icon material-symbols-outlined">work</span>
           <input
             type="url"
             id="f-linkedin"
@@ -294,7 +298,7 @@
       <div>
         <label>Instagram <span class="optional-badge">Optionnel</span></label>
         <div class="social-input-wrap">
-          <span class="s-icon">📸</span>
+          <span class="s-icon material-symbols-outlined">photo_camera</span>
           <input
             type="url"
             id="f-instagram"
@@ -308,7 +312,7 @@
       <div>
         <label>Facebook <span class="optional-badge">Optionnel</span></label>
         <div class="social-input-wrap">
-          <span class="s-icon">👍</span>
+          <span class="s-icon material-symbols-outlined">thumb_up</span>
           <input
             type="url"
             id="f-facebook"
@@ -329,7 +333,7 @@
     <div class="photo-area" id="photo-drop">
       <input type="file" accept="image/*" id="photo-input" onchange="loadPhoto(event)">
       <img id="photo-preview" src="" alt="Photo">
-      <div class="ph-icon">👤</div>
+      <div class="ph-icon material-symbols-outlined">person</div>
       <p>Cliquer pour ajouter une photo</p>
     </div>
   </div>
@@ -358,7 +362,7 @@
 
   <div>
     <div class="section-title">Message / Accroche</div>
-    <textarea id="f-tagline" rows="2" placeholder="Ex: Toujours disponible pour un échange 🤝" style="resize:none" oninput="update()"></textarea>
+    <textarea id="f-tagline" rows="2" placeholder="Ex: Toujours disponible pour un échange" style="resize:none" oninput="update()"></textarea>
   </div>
 
 </div>
@@ -368,7 +372,10 @@
 
   <div class="preview-header">
     <span class="preview-label">Aperçu en temps réel</span>
-    <button class="copy-btn" onclick="copySignature()" id="copy-btn">📋 Copier la signature</button>
+    <button class="copy-btn" onclick="copySignature()" id="copy-btn">
+      <span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;margin-right:4px">content_copy</span>
+      Copier la signature
+    </button>
   </div>
 
   <div class="email-frame">
@@ -410,7 +417,12 @@ function applyTheme(theme) {
   const logo = document.getElementById('header-logo');
   body.setAttribute('data-theme', theme);
   if (btn) {
-    btn.textContent = theme === 'light' ? '☀️ Mode clair' : '☾ Mode sombre';
+    // Label shows the mode you can switch TO
+    if (theme === 'light') {
+      btn.innerHTML = '<span class="material-symbols-outlined">dark_mode</span>Mode sombre';
+    } else {
+      btn.innerHTML = '<span class="material-symbols-outlined">light_mode</span>Mode clair';
+    }
   }
   if (logo) {
     logo.src = theme === 'light' ? 'logo-sigforge-dark.svg' : 'logo-sigforge.svg';
@@ -537,16 +549,21 @@ async function copySignature() {
     await navigator.clipboard.writeText(sig);
   }
   const btn = document.getElementById('copy-btn');
-  btn.textContent = '✅ Copié !';
+  btn.innerHTML = '<span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;margin-right:4px">check</span>Copié !';
   btn.classList.add('copied');
-  setTimeout(() => { btn.textContent = '📋 Copier la signature'; btn.classList.remove('copied'); }, 2000);
+  setTimeout(() => {
+    btn.innerHTML = '<span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;margin-right:4px">content_copy</span>Copier la signature';
+    btn.classList.remove('copied');
+  }, 2000);
 }
 
 async function copyHTML(event) {
   await navigator.clipboard.writeText(buildSignature(true));
   const btn = event.target;
-  btn.textContent = '✅ Copié !';
-  setTimeout(() => { btn.textContent = 'Copier le HTML'; }, 2000);
+  btn.innerHTML = '<span class="material-symbols-outlined" style="font-size:18px;vertical-align:middle;margin-right:4px">check</span>Copié !';
+  setTimeout(() => {
+    btn.innerHTML = 'Copier le HTML';
+  }, 2000);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
