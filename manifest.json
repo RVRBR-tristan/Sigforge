@@ -1,0 +1,18 @@
+{
+  "name": "Sigforge - Générateur de Signature Email",
+  "short_name": "Sigforge",
+  "description": "Signatures email professionnelles · Gratuit · Sans abonnement",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0e0e10",
+  "theme_color": "#2565FF",
+  "lang": "fr",
+  "icons": [
+    {
+      "src": "favicon-sigforge.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
