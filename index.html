@@ -570,12 +570,14 @@ function compactUrlDisplay(url) {
 function buildSocialIcons(linkedin, instagram, facebook) {
   const parts = [];
 
-  const iconLink = (url, bg, text) =>
-    `<a href="${url}" style="text-decoration:none !important;display:inline-block;background:${bg};color:#ffffff;font-family:Arial,sans-serif;font-size:11px;font-weight:700;width:20px;height:20px;line-height:20px;text-align:center;border-radius:50%"><span style="text-decoration:none !important">${text}</span></a>`;
+  // Vrais logos de marque, hébergés sur le site en PNG (rendus à 60px pour
+  // un affichage net à 20px) — les clients mail ne bloquent pas les <img> HTTPS.
+  const iconLink = (url, file, alt) =>
+    `<a href="${url}" style="text-decoration:none;display:inline-block"><img src="${SITE_URL}/${file}" width="20" height="20" style="display:block;border:0" alt="${alt}"></a>`;
 
-  if (linkedin)  parts.push(iconLink(linkedin, '#0077B5', 'in'));
-  if (instagram) parts.push(iconLink(instagram, '#E1306C', 'ig'));
-  if (facebook)  parts.push(iconLink(facebook, '#1877F2', 'f'));
+  if (linkedin)  parts.push(iconLink(linkedin, 'icon-linkedin.png', 'LinkedIn'));
+  if (instagram) parts.push(iconLink(instagram, 'icon-instagram.png', 'Instagram'));
+  if (facebook)  parts.push(iconLink(facebook, 'icon-facebook.png', 'Facebook'));
 
   if (!parts.length) return '';
   const cells = parts.map((p, i) => `<td style="padding-right:${i === parts.length - 1 ? 0 : 10}px">${p}</td>`).join('');
