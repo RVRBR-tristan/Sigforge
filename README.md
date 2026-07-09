@@ -2,6 +2,16 @@
 
 Générateur de signatures courriel (pour Gmail, etc.).
 
+## Photo de profil hébergée (stable dans Gmail)
+
+Gmail supprime les images intégrées en base64 quand on enregistre une signature — la photo « saute ». SigForge évite le problème en **hébergeant la photo** automatiquement :
+
+1. Clique sur « Cliquer pour ajouter une photo » et choisis ton image.
+2. La photo est recadrée en carré, redimensionnée, puis envoyée sur Vercel Blob via `api/upload-photo.js`.
+3. La signature référence l'URL publique retournée (`https://…public.blob.vercel-storage.com/photos/…`) — elle s'affiche partout, comme avec WiseStamp.
+
+Côté infra : le projet Vercel `sigforge` est connecté au store Blob `sigforge-photos` (variable `BLOB_READ_WRITE_TOKEN` injectée automatiquement). L'avatar par défaut est servi depuis `avatar-placeholder.png` sur le site.
+
 ## Icônes colorées et compatibles Gmail
 
 Pour que les icônes sociales s’affichent **avec ta couleur** chez tous tes destinataires (y compris Gmail) :
