@@ -419,11 +419,20 @@ let currentStyle = 'modern';
 // La photo de la signature doit TOUJOURS être une URL publique HTTPS :
 // Gmail supprime les images en base64 au moment d'enregistrer la signature.
 const SITE_URL = 'https://sigforge.vercel.app';
-const DEFAULT_PHOTO_URL = SITE_URL + '/avatar-placeholder.png';
+// Symbole Réverbère par défaut : bleu sur le fond blanc du courriel (style Moderne),
+// blanc sur la cellule de couleur primaire (style Carte).
+const DEFAULT_PHOTO = {
+  modern: SITE_URL + '/reverbere-symbol-blue.png',
+  card:   SITE_URL + '/reverbere-symbol-white.png',
+};
 const UPLOAD_ENDPOINT = location.protocol === 'file:' ? SITE_URL + '/api/upload-photo' : '/api/upload-photo';
-let photoUrl = DEFAULT_PHOTO_URL;
+let customPhotoUrl = '';
 let photoLocalPreview = '';
 let photoUploading = false;
+
+function currentPhotoUrl() {
+  return customPhotoUrl || DEFAULT_PHOTO[currentStyle] || DEFAULT_PHOTO.modern;
+}
 
 function applyTheme(theme) {
   const body = document.body;
@@ -447,9 +456,14 @@ function syncPhotoPreview() {
   const img = document.getElementById('photo-preview');
   if (!img) return;
   const icon = document.querySelector('#photo-drop .ph-icon');
-  const src = photoLocalPreview || photoUrl;
+  // Dans le panneau, toujours la version bleue du symbole (visible sur fond clair et sombre).
+  const src = photoLocalPreview || customPhotoUrl || DEFAULT_PHOTO.modern;
   if (src) {
     img.src = src;
+    // Pas de cercle ni de bordure sur le symbole par défaut, seulement sur les vraies photos.
+    const isPhoto = Boolean(photoLocalPreview || customPhotoUrl);
+    img.style.borderRadius = isPhoto ? '50%' : '0';
+    img.style.border = isPhoto ? '' : 'none';
     img.style.display = 'block';
     if (icon) icon.style.display = 'none';
   } else {
@@ -536,7 +550,7 @@ async function loadPhoto(e) {
     if (!r.ok) throw new Error('HTTP ' + r.status);
     const data = await r.json();
     if (!data.url) throw new Error('Réponse invalide');
-    photoUrl = data.url;
+    customPhotoUrl = data.url;
     setPhotoStatus('done');
   } catch (err) {
     console.error('Upload photo:', err);
@@ -584,10 +598,12 @@ function buildSignature(forEmail) {
   const accent    = val('c-accent');
   // Pour l'email : uniquement l'URL hébergée (jamais de base64, Gmail le supprime).
   // Pour l'aperçu : la version locale, affichée instantanément pendant l'hébergement.
-  const photo     = forEmail ? photoUrl : (photoLocalPreview || photoUrl);
-
+  const photo     = forEmail ? currentPhotoUrl() : (photoLocalPreview || currentPhotoUrl());
+  // L'arrondi ne s'applique qu'aux vraies photos : le symbole Réverbère est
+  // transparent et ses pointes seraient rognées par le cercle.
+  const isSymbol   = !customPhotoUrl && !photoLocalPreview;
   const photoHtml  = photo
-    ? `<img src="${photo}" width="72" height="72" style="border-radius:50%;object-fit:cover;max-width:100%;height:auto" alt="${name}">`
+    ? `<img src="${photo}" width="72" height="72" style="${isSymbol ? '' : 'border-radius:50%;object-fit:cover;'}max-width:100%;height:auto" alt="${isSymbol ? 'Réverbère' : name}">`
     : '';
   const emailLink  = email   ? `<a href="mailto:${email}" style="color:${primary};text-decoration:none">${email}</a>` : '';
   const phoneLink  = phone   ? `<a href="tel:${phone.replace(/\s/g,'')}" style="color:${primary};text-decoration:none">${phone}</a>` : '';
