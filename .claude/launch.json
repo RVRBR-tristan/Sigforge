@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "sigforge-dev",
+      "runtimeExecutable": "vercel",
+      "runtimeArgs": ["dev", "--listen", "3399", "--yes"],
+      "port": 3399
+    }
+  ]
+}
